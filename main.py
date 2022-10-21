@@ -1,15 +1,16 @@
-﻿from os import system, mkdir
+﻿from distutils.command.config import config
+from os import system, mkdir
 import time
 import cv2
 from pathlib import Path
 from pygame import mixer
-#from playsound import playsound
-mixer.init()
-mixer.music.load("banana.mp3")
 MAX_FOTOS = 5
-MAX_FOTOS_TOTALES = 500
+MAX_FOTOS_TOTALES = 150
 TIEMPO_ENTRE_FOTOS = 15
 SENSIBILIDAD = 350
+mixer.init()
+mixer.music.load("audio/banana.mp3")
+
 
 def detect_banana(bananas, img, cnt, cnt_tot):
     for (x,y,w,h) in bananas:
@@ -50,8 +51,10 @@ def agg_txt(img, prev_frame_time, new_frame_time, tiempo, cnt, cnt_tot):
 
 def main():
     time_function_done = time.time()
-    #video = cv2.VideoCapture(0)
-    video = cv2.VideoCapture('vid/1.mp4')
+    video = cv2.VideoCapture(0)
+    video.set(3, 500)
+    video.set(4, 500)
+    #video = cv2.VideoCapture('vid/1.mp4')
     banana_cascade = cv2.CascadeClassifier('dataset/BananaCascade.xml')
     prev_frame_time = 0
     new_frame_time = 0
